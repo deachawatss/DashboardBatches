@@ -10,16 +10,29 @@ namespace MyProjectNamespace
 {
     public partial class DashboardBatches : Form
     {
-        private string connectionString =
+        private readonly string connectionString =
                  @"Data Source=th-bp-db\mssql2017;" +
                  "User ID=dvl;" +
                  "Password=Pr0gr@mm1ng;" +
                  "Database=TFCPILOT;" +
                  "Application Name=DashboardBatches";
+        private Timer refreshTimer;
 
         public DashboardBatches()
         {
             InitializeComponent();
+            InitializeTimer();
+        }
+        private void InitializeTimer()
+        {
+            refreshTimer = new Timer();
+            refreshTimer.Interval = 10000;
+            refreshTimer.Tick += new EventHandler(RefreshTimer_Tick);
+            refreshTimer.Start();
+        }
+        private void RefreshTimer_Tick(object sender, EventArgs e)
+        {
+            LoadBatchData();
         }
 
         private void DashboardBatches_Load(object sender, EventArgs e)
@@ -64,14 +77,18 @@ namespace MyProjectNamespace
         private void LoadLineMachines()
         {
             comboBoxLine.Items.Clear();
+
+            comboBoxLine.Items.Add("All");
             comboBoxLine.Items.Add("Aussie");
             comboBoxLine.Items.Add("Yankee");
             comboBoxLine.Items.Add("Seasoning");
+
+            comboBoxLine.SelectedIndex = 0;
         }
 
         private void LoadBatchData()
         {
-            string selectedLine = comboBoxLine.SelectedItem?.ToString() ?? "Aussie";
+            string selectedLine = comboBoxLine.SelectedItem?.ToString() ?? "All";
 
             string sql = @"
 SELECT 
@@ -79,16 +96,24 @@ SELECT
     FinishTip, StartBlend, FinishBlend, FGTipBinID, FGPackBinID, StartPack, FinishPack, 
     IBCKG, BagSize, FullBags, PartBags, PackComplete, StartSieve2, FinishSieve2, FGItemkey, 
     IBCFinished, Clean1start, Clean1finish, Clean2start, Clean2finish, Clean3start, Clean3finish
-FROM TFC_PTiming2
-WHERE ProcessCell = @line
-ORDER BY Sequence DESC";
+FROM TFC_PTiming2";
+
+if (selectedLine != "All")
+    {
+                sql += " WHERE ProcessCell = @line";
+            }
+            sql += " ORDER BY Sequence DESC";
 
             DataTable dt = new DataTable();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             using (SqlCommand cmd = new SqlCommand(sql, conn))
             {
-                cmd.Parameters.AddWithValue("@line", selectedLine);
+                if (selectedLine != "All")
+                {
+                    cmd.Parameters.AddWithValue("@line", selectedLine);
+                }
+
                 conn.Open();
                 dt.Load(cmd.ExecuteReader());
             }
