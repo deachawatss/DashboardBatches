@@ -18,3 +18,13 @@ C:\Users\deachawat\source\repos\DashboardBatches\DashboardBatches\obj\Debug\Dash
 C:\Users\deachawat\source\repos\DashboardBatches\DashboardBatches\obj\Debug\DashboardBatches.csproj.CoreCompileInputs.cache
 C:\Users\deachawat\source\repos\DashboardBatches\DashboardBatches\obj\Debug\DashboardBatches.exe
 C:\Users\deachawat\source\repos\DashboardBatches\DashboardBatches\obj\Debug\DashboardBatches.pdb
+C:\MyProjects\DashboardBatches\bin\Debug\DashboardBatches.exe.config
+C:\MyProjects\DashboardBatches\bin\Debug\DashboardBatches.exe
+C:\MyProjects\DashboardBatches\bin\Debug\DashboardBatches.pdb
+C:\MyProjects\DashboardBatches\obj\Debug\DashboardBatches.csproj.AssemblyReference.cache
+C:\MyProjects\DashboardBatches\obj\Debug\MyProjectNamespace.DashboardBatches.resources
+C:\MyProjects\DashboardBatches\obj\Debug\DashboardBatches.Properties.Resources.resources
+C:\MyProjects\DashboardBatches\obj\Debug\DashboardBatches.csproj.GenerateResource.cache
+C:\MyProjects\DashboardBatches\obj\Debug\DashboardBatches.csproj.CoreCompileInputs.cache
+C:\MyProjects\DashboardBatches\obj\Debug\DashboardBatches.exe
+C:\MyProjects\DashboardBatches\obj\Debug\DashboardBatches.pdb
