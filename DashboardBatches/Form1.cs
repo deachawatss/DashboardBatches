@@ -92,17 +92,48 @@ namespace MyProjectNamespace
 
             string sql = @"
 SELECT 
-    BatchNo, StartSieve, FinishSieve, RMSieveBinID, SieveComplete, RMTipBinID, StartTip, 
-    FinishTip, StartBlend, FinishBlend, FGTipBinID, FGPackBinID, StartPack, FinishPack, 
-    IBCKG, BagSize, FullBags, PartBags, PackComplete, StartSieve2, FinishSieve2, FGItemkey, 
-    IBCFinished, Clean1start, Clean1finish, Clean2start, Clean2finish, Clean3start, Clean3finish
-FROM TFC_PTiming2";
+    T.BatchNo,
+P.FormulaId As ProductNo,
+    T.StartSieve,
+    T.FinishSieve,
+    T.RMSieveBinID,
+    T.SieveComplete,
+    T.RMTipBinID,
+    T.StartTip,
+    T.FinishTip,
+    T.StartBlend,
+    T.FinishBlend,
+    T.FGTipBinID,
+    T.FGPackBinID,
+    T.StartPack,
+    T.FinishPack,
+    T.IBCKG,
+    T.BagSize,
+    T.FullBags,
+    T.PartBags,
+    T.PackComplete,
+    T.StartSieve2,
+    T.FinishSieve2,
+    T.FGItemkey,
+    T.IBCFinished,
+    T.Clean1start,
+    T.Clean1finish,
+    T.Clean2start,
+    T.Clean2finish,
+    T.Clean3start,
+    T.Clean3finish
+FROM TFC_PTiming2 T
+LEFT JOIN PNMAST P
+    ON T.BatchNo = P.BatchNo";
 
-if (selectedLine != "All")
-    {
-                sql += " WHERE ProcessCell = @line";
+            if (selectedLine != "All")
+            {
+                sql += " WHERE T.ProcessCell = @line";
             }
-            sql += " ORDER BY Sequence DESC";
+
+            
+            sql += " ORDER BY T.Sequence DESC";
+
 
             DataTable dt = new DataTable();
 
